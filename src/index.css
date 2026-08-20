@@ -1,0 +1,295 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --midnight: #0b0e14;
+  --midnight-2: #11151f;
+  --emerald: #0f3d2e;
+  --emerald-deep: #0820185;
+  --emerald-deep-fix: #072018;
+  --gold: #d4af37;
+  --gold-light: #e8c766;
+  --gold-dim: #8a6f24;
+  --ivory: #f5efe0;
+  --crimson: #c8102e;
+  --ink: #15110a;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ivory);
+  background-color: var(--midnight);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 50% 32%, rgba(15, 61, 46, 0.55) 0%, rgba(11, 14, 20, 0) 60%),
+    radial-gradient(ellipse 70% 50% at 50% 118%, rgba(212, 175, 55, 0.12) 0%, rgba(11, 14, 20, 0) 55%),
+    radial-gradient(circle at 12% 8%, rgba(212, 175, 55, 0.06) 0%, rgba(11, 14, 20, 0) 25%),
+    radial-gradient(circle at 88% 12%, rgba(212, 175, 55, 0.05) 0%, rgba(11, 14, 20, 0) 22%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* 颗粒噪点叠层 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* 字体工具类 */
+.font-display {
+  font-family: "Cinzel", "Cormorant Garamond", serif;
+  letter-spacing: 0.08em;
+}
+.font-serif2 {
+  font-family: "Cormorant Garamond", "Cinzel", serif;
+}
+.font-body {
+  font-family: "Manrope", system-ui, sans-serif;
+}
+
+/* 金箔文字 */
+.gold-foil {
+  background: linear-gradient(
+    100deg,
+    #8a6f24 0%,
+    #d4af37 22%,
+    #f6e7a8 42%,
+    #d4af37 58%,
+    #8a6f24 80%,
+    #f6e7a8 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* 金色分隔线 + 菱形 */
+.gold-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--gold);
+}
+.gold-divider::before,
+.gold-divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.65), transparent);
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0b0e14;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8a6f24, #d4af37);
+  border-radius: 8px;
+  border: 2px solid #0b0e14;
+}
+
+/* 动画关键帧 */
+@keyframes dealIn {
+  0% {
+    transform: translateY(-60px) rotate(-10deg) scale(0.78);
+    opacity: 0;
+    filter: blur(4px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    transform: translateY(0) rotate(0) scale(1);
+    opacity: 1;
+  }
+}
+@keyframes flipReveal {
+  0% {
+    transform: rotateY(180deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateY(0deg);
+    opacity: 1;
+  }
+}
+@keyframes goldPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.55), 0 8px 24px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 36px 6px rgba(212, 175, 55, 0.65), 0 8px 24px rgba(0, 0, 0, 0.5);
+  }
+}
+@keyframes wrongShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(-10px);
+  }
+  30% {
+    transform: translateX(9px);
+  }
+  45% {
+    transform: translateX(-7px);
+  }
+  60% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+}
+@keyframes redFlash {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(200, 16, 46, 0);
+  }
+  50% {
+    box-shadow: 0 0 38px 6px rgba(200, 16, 46, 0.6);
+  }
+}
+@keyframes popIn {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.18);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes fadeUp {
+  0% {
+    transform: translateY(18px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes spinSlow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.anim-deal {
+  animation: dealIn 0.55s cubic-bezier(0.2, 0.9, 0.25, 1.1) both;
+}
+.anim-flip {
+  animation: flipReveal 0.5s ease-out both;
+  transform-style: preserve-3d;
+}
+.anim-gold-pulse {
+  animation: goldPulse 0.9s ease-out;
+}
+.anim-wrong {
+  animation: wrongShake 0.5s ease, redFlash 0.5s ease;
+}
+.anim-pop {
+  animation: popIn 0.4s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+.anim-fade-up {
+  animation: fadeUp 0.6s ease both;
+}
+.anim-floaty {
+  animation: floaty 5s ease-in-out infinite;
+}
+.anim-spin-slow {
+  animation: spinSlow 60s linear infinite;
+}
+.anim-breathe {
+  animation: breathe 2.4s ease-in-out infinite;
+}
+
+/* Art Deco 太阳放射背景装饰 */
+.deco-sunburst {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(212, 175, 55, 0.10) 0deg 6deg,
+    transparent 6deg 12deg
+  );
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 62%);
+  mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 62%);
+}
+
+/* 卡牌底纹纹理 */
+.felt-texture {
+  background-image:
+    radial-gradient(ellipse at center, rgba(15, 61, 46, 0.0) 0%, rgba(0, 0, 0, 0.35) 100%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.012) 0 2px, transparent 2px 4px);
+}
+
+/* 卡牌背面纹理 */
+.card-back-pattern {
+  background-color: #0f3d2e;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(212, 175, 55, 0.16) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(-45deg, rgba(212, 175, 55, 0.16) 0 1px, transparent 1px 8px),
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.25) 0%, transparent 60%);
+}
+
+.no-select {
+  -webkit-user-select: none;
+  user-select: none;
+}
